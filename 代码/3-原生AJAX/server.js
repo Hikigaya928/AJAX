@@ -36,6 +36,14 @@ app.all('/json-server',(request,response)=>{
     response.send(str);
 });
 
+//针对IE缓存问题的规则
+app.get('/ie',(request,response)=>{
+    //设置响应头 设置允许跨域
+    response.setHeader('Access-Control-Allow-Origin','*');
+    
+    // 设置响应体
+    response.send('HELLO IE-3');
+});
 // 4.监听端口启动服务
 app.listen(8000,()=>{
     console.log('服务已经启动,8000端口监听中....');
