@@ -53,6 +53,26 @@ app.get('/delay', (request, response) => {
         response.send('延时响应');
     }, 3000);
 });
+//针对 jQuery 服务
+app.all('/jquery-server', (request, response) => {
+    //设置响应头 设置允许跨域
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    response.setHeader('Access-Control-Allow-Headers', '*');
+    const data = { name: 'Nliverd的AJAX学习笔记' };
+
+    // response.send("Hello jQuery AJAX");
+    response.send(JSON.stringify(data));
+
+});
+//针对 axios 服务
+app.all('/axios-server', (request, response) => {
+    //设置响应头 设置允许跨域
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    response.setHeader('Access-Control-Allow-Headers', '*');
+    const data = { name: 'hjy' };
+    // response.send("Hello jQuery AJAX");
+    response.send(JSON.stringify(data));
+});
 // 4.监听端口启动服务
 app.listen(8000, () => {
     console.log('服务已经启动,8000端口监听中....');
