@@ -85,18 +85,30 @@ app.all('/fetch-server', (request, response) => {
 });
 
 //JSONP 服务
-app.all('/jsonp-server',(request,response)=>{
-/*   response.send('hello jsonp-server'); ❌
-     因为是通过script标签跨域，通过标签解析不了纯文本内容，需要换成js代码!!
-     response.send('console.log("hello jsonp-server")'); ✔*/
-     const data = {
-        name:'JSONP跨域'
+app.all('/jsonp-server', (request, response) => {
+    /*   response.send('hello jsonp-server'); ❌
+         因为是通过script标签跨域，通过标签解析不了纯文本内容，需要换成js代码!!
+         response.send('console.log("hello jsonp-server")'); ✔*/
+    const data = {
+        name: 'JSONP跨域'
     };
     //将数据转化成字符串
     let str = JSON.stringify(data);
     //返回结果
     response.end(`handle(${str})`)
-})
+});
+
+//用户名检测是否存在
+app.all('/check-username', (request, response) => {
+    const data = {
+        exist: 1,
+        msg: '用户名已经存在'
+    };
+    //将数据转化成字符串
+    let str = JSON.stringify(data);
+    //返回结果
+    response.end(`handle(${str})`)
+});
 
 // 4.监听端口启动服务
 app.listen(8000, () => {
