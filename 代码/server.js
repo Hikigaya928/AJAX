@@ -14,7 +14,6 @@ app.get('/server', (request, response) => {
     // 设置响应体
     response.send('HELLO AJAX');
 });
-
 app.post('/server', (request, response) => {
     //设置响应头 设置允许跨域
     response.setHeader('Access-Control-Allow-Origin', '*');
@@ -22,7 +21,6 @@ app.post('/server', (request, response) => {
     // 设置响应体
     response.send('HELLO AJAX POST');
 });
-
 app.all('/json-server', (request, response) => {
     //设置响应头 设置允许跨域
     response.setHeader('Access-Control-Allow-Origin', '*');
@@ -53,7 +51,8 @@ app.get('/delay', (request, response) => {
         response.send('延时响应');
     }, 3000);
 });
-//针对 jQuery 服务
+
+//jQuery 服务
 app.all('/jquery-server', (request, response) => {
     //设置响应头 设置允许跨域
     response.setHeader('Access-Control-Allow-Origin', '*');
@@ -64,7 +63,8 @@ app.all('/jquery-server', (request, response) => {
     response.send(JSON.stringify(data));
 
 });
-//针对 axios 服务
+
+//axios 服务
 app.all('/axios-server', (request, response) => {
     //设置响应头 设置允许跨域
     response.setHeader('Access-Control-Allow-Origin', '*');
@@ -73,6 +73,7 @@ app.all('/axios-server', (request, response) => {
     // response.send("Hello jQuery AJAX");
     response.send(JSON.stringify(data));
 });
+
 //fetch 服务
 app.all('/fetch-server', (request, response) => {
     //设置响应头 设置允许跨域
@@ -82,6 +83,21 @@ app.all('/fetch-server', (request, response) => {
     // response.send("Hello jQuery AJAX");
     response.send(JSON.stringify(data));
 });
+
+//JSONP 服务
+app.all('/jsonp-server',(request,response)=>{
+/*   response.send('hello jsonp-server'); ❌
+     因为是通过script标签跨域，通过标签解析不了纯文本内容，需要换成js代码!!
+     response.send('console.log("hello jsonp-server")'); ✔*/
+     const data = {
+        name:'JSONP跨域'
+    };
+    //将数据转化成字符串
+    let str = JSON.stringify(data);
+    //返回结果
+    response.end(`handle(${str})`)
+})
+
 // 4.监听端口启动服务
 app.listen(8000, () => {
     console.log('服务已经启动,8000端口监听中....');
